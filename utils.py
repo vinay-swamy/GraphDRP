@@ -6,6 +6,7 @@ from torch_geometric.data import InMemoryDataset, DataLoader
 from torch_geometric import data as DATA
 import torch
 import matplotlib.pyplot as plt
+import tqdm
 
 class TestbedDataset(InMemoryDataset):
     def __init__(self, root='/tmp', dataset='davis', 
@@ -54,8 +55,9 @@ class TestbedDataset(InMemoryDataset):
         assert (len(xd) == len(xt) and len(xt) == len(y)), "The three lists must be the same length!"
         data_list = []
         data_len = len(xd)
-        for i in range(data_len):
-            print('Converting SMILES to graph: {}/{}'.format(i+1, data_len))
+        print('Converting SMILES to graph...')
+        for i in tqdm.tqdm(range(data_len)):
+            
             smiles = xd[i]
             target = xt[i]
             labels = y[i]
